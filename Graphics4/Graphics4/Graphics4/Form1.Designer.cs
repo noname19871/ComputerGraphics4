@@ -49,7 +49,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(993, 466);
+            this.pictureBox1.Size = new System.Drawing.Size(930, 466);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -57,7 +57,7 @@
             // ResultLabel
             // 
             this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(1012, 276);
+            this.ResultLabel.Location = new System.Drawing.Point(949, 276);
             this.ResultLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ResultLabel.Name = "ResultLabel";
             this.ResultLabel.Size = new System.Drawing.Size(129, 19);
@@ -66,7 +66,7 @@
             // 
             // DrawButton
             // 
-            this.DrawButton.Location = new System.Drawing.Point(1011, 12);
+            this.DrawButton.Location = new System.Drawing.Point(948, 12);
             this.DrawButton.Name = "DrawButton";
             this.DrawButton.Size = new System.Drawing.Size(184, 83);
             this.DrawButton.TabIndex = 12;
@@ -76,7 +76,7 @@
             // 
             // TransformationButton
             // 
-            this.TransformationButton.Location = new System.Drawing.Point(1011, 101);
+            this.TransformationButton.Location = new System.Drawing.Point(948, 101);
             this.TransformationButton.Name = "TransformationButton";
             this.TransformationButton.Size = new System.Drawing.Size(184, 83);
             this.TransformationButton.TabIndex = 14;
@@ -86,7 +86,7 @@
             // 
             // DefinitionButton
             // 
-            this.DefinitionButton.Location = new System.Drawing.Point(1011, 190);
+            this.DefinitionButton.Location = new System.Drawing.Point(948, 190);
             this.DefinitionButton.Name = "DefinitionButton";
             this.DefinitionButton.Size = new System.Drawing.Size(184, 83);
             this.DefinitionButton.TabIndex = 15;
@@ -103,7 +103,7 @@
             "Поворот ребра",
             "Масштабирование",
             "Поиск точки пересечения"});
-            this.comboBox1.Location = new System.Drawing.Point(1016, 298);
+            this.comboBox1.Location = new System.Drawing.Point(948, 298);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(184, 27);
             this.comboBox1.TabIndex = 16;
