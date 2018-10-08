@@ -49,7 +49,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(765, 432);
+            this.pictureBox1.Size = new System.Drawing.Size(1045, 466);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -57,7 +57,7 @@
             // ResultLabel
             // 
             this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(779, 276);
+            this.ResultLabel.Location = new System.Drawing.Point(1064, 276);
             this.ResultLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ResultLabel.Name = "ResultLabel";
             this.ResultLabel.Size = new System.Drawing.Size(129, 19);
@@ -66,7 +66,7 @@
             // 
             // DrawButton
             // 
-            this.DrawButton.Location = new System.Drawing.Point(783, 12);
+            this.DrawButton.Location = new System.Drawing.Point(1068, 12);
             this.DrawButton.Name = "DrawButton";
             this.DrawButton.Size = new System.Drawing.Size(184, 83);
             this.DrawButton.TabIndex = 12;
@@ -76,7 +76,7 @@
             // 
             // TransformationButton
             // 
-            this.TransformationButton.Location = new System.Drawing.Point(783, 101);
+            this.TransformationButton.Location = new System.Drawing.Point(1068, 101);
             this.TransformationButton.Name = "TransformationButton";
             this.TransformationButton.Size = new System.Drawing.Size(184, 83);
             this.TransformationButton.TabIndex = 14;
@@ -86,7 +86,7 @@
             // 
             // DefinitionButton
             // 
-            this.DefinitionButton.Location = new System.Drawing.Point(783, 190);
+            this.DefinitionButton.Location = new System.Drawing.Point(1068, 190);
             this.DefinitionButton.Name = "DefinitionButton";
             this.DefinitionButton.Size = new System.Drawing.Size(184, 83);
             this.DefinitionButton.TabIndex = 15;
@@ -100,25 +100,25 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Смещение",
             "Поворот примитива",
-            "Поворот ребра ",
+            "Поворот ребра",
             "Масштабирование",
             "Поиск точки пересечения"});
-            this.comboBox1.Location = new System.Drawing.Point(1131, 12);
+            this.comboBox1.Location = new System.Drawing.Point(1068, 298);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 27);
+            this.comboBox1.Size = new System.Drawing.Size(184, 27);
             this.comboBox1.TabIndex = 16;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(808, 548);
+            this.textBox1.Location = new System.Drawing.Point(12, 503);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 26);
             this.textBox1.TabIndex = 17;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(1055, 538);
+            this.textBox2.Location = new System.Drawing.Point(16, 554);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 26);
             this.textBox2.TabIndex = 18;
@@ -126,7 +126,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(813, 526);
+            this.label1.Location = new System.Drawing.Point(12, 481);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 19);
             this.label1.TabIndex = 19;
@@ -135,7 +135,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1051, 516);
+            this.label2.Location = new System.Drawing.Point(12, 532);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 19);
             this.label2.TabIndex = 20;
@@ -143,9 +143,9 @@
             // 
             // OkButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(1080, 609);
+            this.OkButton.Location = new System.Drawing.Point(12, 586);
             this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(154, 60);
+            this.OkButton.Size = new System.Drawing.Size(184, 83);
             this.OkButton.TabIndex = 21;
             this.OkButton.Text = "Применить";
             this.OkButton.UseVisualStyleBackColor = true;

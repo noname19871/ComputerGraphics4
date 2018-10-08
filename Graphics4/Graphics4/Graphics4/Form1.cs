@@ -98,7 +98,8 @@ namespace Graphics4
 
         private void TransformationButton_Click(object sender, EventArgs e)
         {
-            ResultLabel.Hide();
+            ResultLabel.Show();
+            ResultLabel.Text = "Выберите преобразование";
             comboBox1.Show();
             comboBox1.SelectedItem = comboBox1.Items[0];
             textBox1.Show();
@@ -119,6 +120,7 @@ namespace Graphics4
             }
 
             ResultLabel.Show();
+            ResultLabel.Text = "Точка не выбрана";
             comboBox1.Hide();
             textBox1.Hide();
             textBox2.Hide();
@@ -259,7 +261,8 @@ namespace Graphics4
                             break;
                         }
                         Point tmp1 = new Point(e.Location.X + 1, e.Location.Y);
-                        if (intersect(tmp, tmp1, Points[i], Points[ii]))
+                        Point tmp2 = new Point(-1, -1);
+                        if (intersect(tmp, tmp1, Points[i], Points[ii], ref tmp2))
                         {
                             cntIntersect++;
                         }
@@ -277,6 +280,25 @@ namespace Graphics4
                 if (current_transformation == "rotation")
                 {
                     rotation_point = e.Location;
+                }
+
+                if (current_transformation == "find point")
+                {
+                    if (Points.Count > 4)
+                        return;
+
+                    if (Points.Count == 2)
+                    {
+                        Points.Add(e.Location);
+                        draw_point(e.Location.X, e.Location.Y, Color.Black);
+                    }
+                    else
+                    {
+                        Points.Add(e.Location);
+                        draw_point(e.Location.X, e.Location.Y, Color.Black);
+                        g.DrawLine(new Pen(Color.Black, 3), Points[2], Points[3]);
+                        pictureBox1.Image = bmp;
+                    }
                 }
             }
         }
@@ -332,7 +354,7 @@ namespace Graphics4
             else return false;;
         }
 
-        bool intersect(Point px, Point py, Point px1, Point py1)
+        bool intersect(Point px, Point py, Point px1, Point py1, ref Point p)
         {
             point res;
             line m = getLinebyPoints(px, py);
@@ -348,9 +370,15 @@ namespace Graphics4
             res.x = -det(m.c, m.b, n.c, n.b) / zn;
             res.y = -det(m.a, m.c, n.a, n.c) / zn;
             //проверка, что Point пересечения между координатами концов отрезка.
-            if (((res.x > px1.X && res.x < py1.X) || (res.x < px1.X && res.x > py1.X)) && ((res.y > px1.Y && res.y < py1.Y) || (res.y < px1.Y && res.y > py1.Y)))
-                if (res.x > px.X) //С нужной стороны от луча
+            if (((res.x > px1.X && res.x < py1.X) || (res.x < px1.X && res.x > py1.X)) && 
+                ((res.y > px1.Y && res.y < py1.Y) || (res.y < px1.Y && res.y > py1.Y)))
+                if (res.x > px.X)
+                {
+                    p.X = (int)res.x;
+                    p.Y = (int)res.y;
                     return true;
+                }
+
                 else return false;
             else return false;
         }
@@ -361,6 +389,16 @@ namespace Graphics4
             {
                 case "Смещение":
                     {
+                        if (current_transformation == "find point" && Points.Count == 4)
+                        {
+                            draw_point(Points[2].X, Points[2].Y, this.pictureBox1.BackColor);
+                            draw_point(Points[3].X, Points[3].Y, this.pictureBox1.BackColor);
+                            g.DrawLine(new Pen(this.pictureBox1.BackColor, 3), Points[2], Points[3]);
+                            Points.Remove(Points[3]);
+                            Points.Remove(Points[2]);
+                            g.DrawLine(new Pen(Color.Black, 3), Points[0], Points[1]);
+                            pictureBox1.Image = bmp;
+                        }
                         current_transformation = "shift";
                         OkButton.Show();
                         textBox1.Show();
@@ -369,10 +407,22 @@ namespace Graphics4
                         label2.Show();
                         label1.Text = "Введите сдвиг по X: ";
                         label2.Text = "Введите сдвиг по Y: ";
+                        textBox1.Text = "0";
+                        textBox2.Text = "0";
                         break;
                     }
                 case "Поворот примитива":
                     {
+                        if (current_transformation == "find point" && Points.Count == 4)
+                        {
+                            draw_point(Points[2].X, Points[2].Y, this.pictureBox1.BackColor);
+                            draw_point(Points[3].X, Points[3].Y, this.pictureBox1.BackColor);
+                            g.DrawLine(new Pen(this.pictureBox1.BackColor, 3), Points[2], Points[3]);
+                            Points.Remove(Points[3]);
+                            Points.Remove(Points[2]);
+                            g.DrawLine(new Pen(Color.Black, 3), Points[0], Points[1]);
+                            pictureBox1.Image = bmp;
+                        }
                         current_transformation = "rotation";
                         OkButton.Show();
                         textBox1.Show();
@@ -384,10 +434,48 @@ namespace Graphics4
                     }
                 case "Поворот ребра":
                     {
+                        if (current_transformation == "find point" && Points.Count == 4)
+                        {
+                            draw_point(Points[2].X, Points[2].Y, this.pictureBox1.BackColor);
+                            draw_point(Points[3].X, Points[3].Y, this.pictureBox1.BackColor);
+                            g.DrawLine(new Pen(this.pictureBox1.BackColor, 3), Points[2], Points[3]);
+                            Points.Remove(Points[3]);
+                            Points.Remove(Points[2]);
+                            g.DrawLine(new Pen(Color.Black, 3), Points[0], Points[1]);
+                            pictureBox1.Image = bmp;
+                        }
+                        if (current_primitive != "Edge")
+                        {
+                            OkButton.Hide();
+                            textBox1.Hide();
+                            textBox2.Hide();
+                            label1.Hide();
+                            label2.Hide();
+                            MessageBox.Show("Выбран неправильный примитив", "Ошибка",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        current_transformation = "edge rotation";
+                        OkButton.Show();
+                        textBox1.Hide();
+                        textBox2.Hide();
+                        label1.Hide();
+                        label2.Hide();
+                        label1.Text = "Введите угол поворота: ";
                         break;
                     }
                 case "Масштабирование":
                     {
+                        if (current_transformation == "find point" && Points.Count == 4)
+                        {
+                            draw_point(Points[2].X, Points[2].Y, this.pictureBox1.BackColor);
+                            draw_point(Points[3].X, Points[3].Y, this.pictureBox1.BackColor);
+                            g.DrawLine(new Pen(this.pictureBox1.BackColor, 3), Points[2], Points[3]);
+                            Points.Remove(Points[3]);
+                            Points.Remove(Points[2]);
+                            g.DrawLine(new Pen(Color.Black, 3), Points[0], Points[1]);
+                            pictureBox1.Image = bmp;
+                        }
                         current_transformation = "scale";
                         OkButton.Show();
                         textBox1.Show();
@@ -400,6 +488,25 @@ namespace Graphics4
                     }
                 case "Поиск точки пересечения":
                     {
+                        if (current_primitive != "Edge")
+                        {
+                            OkButton.Hide();
+                            textBox1.Hide();
+                            textBox2.Hide();
+                            label1.Hide();
+                            label2.Hide();
+                            MessageBox.Show("Выбран неправильный примитив", "Ошибка",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        current_transformation = "find point";
+                        OkButton.Show();
+                        textBox1.Hide();
+                        textBox2.Hide();
+                        label1.Show();
+                        label2.Show();
+                        label1.Text = "Нарисуйте второе ребро";
+                        label2.Text = "Ответ: ";
                         break;
                     }
             }
@@ -417,13 +524,22 @@ namespace Graphics4
             y /= Points.Count;
         }
 
-
         private bool create_transformation_matrix()
         {
             if (current_transformation == "shift")
             {
-                double tX = System.Convert.ToDouble(textBox1.Text);
-                double tY = System.Convert.ToDouble(textBox2.Text);
+                double tX;
+                double tY;
+                bool get_x = double.TryParse(textBox1.Text,out tX);
+                bool get_y = double.TryParse(textBox2.Text, out tY);
+
+                if (!get_x || ! get_y)
+                {
+                    MessageBox.Show("Введены неверные значения", "Ошибка",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
                 transformation_matrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { tX, tY, 1.0 } };
             }
             else if (current_transformation == "rotation")
@@ -434,9 +550,29 @@ namespace Graphics4
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+                double p;
+                bool get_p = double.TryParse(textBox1.Text, out p);
+
+                if (!get_p)
+                {
+                    MessageBox.Show("Задан неверный угол", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
                 double c = rotation_point.X;
                 double d = rotation_point.Y;
-                double p = System.Convert.ToDouble(textBox1.Text) * Math.PI / 180;
+
+                double cos = Math.Cos(p);
+                double sin = Math.Sin(p);
+                transformation_matrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
+                        {cos*(-c)+d*sin+c, (-c)*sin-d*cos+d, 1}};
+            }
+            else if (current_transformation == "edge rotation")
+            {
+                double c = 0;
+                double d = 0;
+                find_center(ref c, ref d);
+                double p = 90 * Math.PI / 180;
                 double cos = Math.Cos(p);
                 double sin = Math.Sin(p);
                 transformation_matrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
@@ -444,8 +580,18 @@ namespace Graphics4
             }
             else if (current_transformation == "scale")
             {
-                double cx = System.Convert.ToDouble(textBox1.Text); 
-                double cy = System.Convert.ToDouble(textBox2.Text); 
+                double cx;
+                double cy;
+
+                bool get_x = double.TryParse(textBox1.Text, out cx);
+                bool get_y = double.TryParse(textBox2.Text, out cy);
+
+                if (!get_x || !get_y)
+                {
+                    MessageBox.Show("Введены неверные значения", "Ошибка",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
 
                 if (current_primitive == "Point")
                     transformation_matrix = new double[3, 3] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
@@ -455,7 +601,24 @@ namespace Graphics4
                     find_center(ref a, ref b);
                     transformation_matrix = new double[3, 3] { { cx, 0, 0 }, { 0, cy, 0 }, { (1 - cx) * a, (1 - cy) * b, 1 } };
                 }
-
+            }
+            else if (current_transformation == "find point")
+            {
+                if (Points.Count != 4)
+                {
+                    MessageBox.Show("Нарисуйте второе ребро", "Ошибка",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                Point p = new Point(-1,-1);
+                if (intersect(Points[0], Points[1], Points[2], Points[3],ref p))
+                {
+                    draw_point(p.X, p.Y, Color.Red);
+                    draw_point(p.X - 1, p.Y, Color.Red);
+                    draw_point(p.X + 1, p.Y, Color.Red);
+                    draw_point(p.X, p.Y + 1, Color.Red);
+                    draw_point(p.X, p.Y - 1, Color.Red);
+                }
             }
 
             return true;
@@ -519,7 +682,7 @@ namespace Graphics4
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            if (!create_transformation_matrix())
+            if (!create_transformation_matrix() || current_transformation == "find point")
             {
                 return;
             }
