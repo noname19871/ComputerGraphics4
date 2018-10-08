@@ -298,6 +298,7 @@ namespace Graphics4
                         draw_point(e.Location.X, e.Location.Y, Color.Black);
                         g.DrawLine(new Pen(Color.Black, 3), Points[2], Points[3]);
                         pictureBox1.Image = bmp;
+                        label1.Hide();
                     }
                 }
             }
@@ -430,6 +431,7 @@ namespace Graphics4
                         label1.Show();
                         label2.Hide();
                         label1.Text = "Введите угол поворота: ";
+                        textBox1.Text = "0";
                         break;
                     }
                 case "Поворот ребра":
@@ -461,7 +463,6 @@ namespace Graphics4
                         textBox2.Hide();
                         label1.Hide();
                         label2.Hide();
-                        label1.Text = "Введите угол поворота: ";
                         break;
                     }
                 case "Масштабирование":
@@ -484,6 +485,8 @@ namespace Graphics4
                         label2.Show();
                         label1.Text = "Введите коэффициент по X: ";
                         label2.Text = "Введите коэффициент по Y: ";
+                        textBox1.Text = "0";
+                        textBox2.Text = "0";
                         break;
                     }
                 case "Поиск точки пересечения":
@@ -504,9 +507,8 @@ namespace Graphics4
                         textBox1.Hide();
                         textBox2.Hide();
                         label1.Show();
-                        label2.Show();
+                        label2.Hide();
                         label1.Text = "Нарисуйте второе ребро";
-                        label2.Text = "Ответ: ";
                         break;
                     }
             }
